@@ -8,7 +8,7 @@
 
 ### 1.3. Exhaustive search.
 
-### 1.4. Answer of the questions
+### 1.4. Answer of the questions.
 
 * <b style="color:red"> Question 1: </b> How many combinations (exhaustive search) exist for $N=100$ points? 
 	There are ${100!\over3!97!} = 161700$ combinations.
