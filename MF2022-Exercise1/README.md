@@ -30,6 +30,10 @@
 
   There are ${100000!\over3!99997!} = 166661666700000$
 
+  | r      | 5%   | 20%  | 30%  | 70%  |
+  | ------ | ---- | ---- | ---- | ---- |
+  | n_iter | 3    | 7    | 11   | 169  |
+
 * <b style="color:red"> Question 4: </b> Does exhaustive search on all the combinations of data points guarantee the optimal solution (in terms of number of inliers)? Why?
 
   Yes. Because exhaustive search tries all the possibilities, and finds the global optimized solution.
@@ -55,4 +59,8 @@
 
     ![cmp](assets/cmp.jpg)
 
-    
+
+* **Discuss the results obtained by these methods**
+  * When $r = 0$, all of the algorithms has a reliable prediction.
+  * When $r=0.01, 0.1, 0.5$, the first two algorithm (with $L_1$ norm) can fit the line, but the third algorithm with $L_{\infty}$ cannot make accurate prediction. This is because the infinity norm is more sensitive to the outliers.
+  * When $r = 0.8$, all of the algorithms cannot fit the line. Because the number of outliers is more than the number of inliers. Note that the first two algorithms have the same result since they have the same metric. 
