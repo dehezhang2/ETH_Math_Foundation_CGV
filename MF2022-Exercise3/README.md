@@ -43,7 +43,12 @@ Please add the image in the zip folder to the `data` folder and run the `ipynb` 
 
   ![download (7)](assets/download (7).png)
 
-* Bonus: The bonus is achieved by replacing the orignal $\phi$ function by a softmax function. The softmax function is implemented in the library ` scipy.special.softmax` . 
+* Bonus: The bonus is achieved by replacing the orignal $\phi$ function by a numerical stable softmax function. The softmax function is implemented as following:
+
+  ```python
+  phi = np.exp(x - np.max(x))
+  softmax = phi / np.sum(phi)
+  ```
 
 ## Task 3: Curve and Surface Reconstruction Using MLS
 
