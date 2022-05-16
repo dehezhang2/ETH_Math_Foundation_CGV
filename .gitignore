@@ -1,3 +1,6 @@
 .DS_Store
 models
 .ipynb_checkpoints
+hr_image.png
+lr_image.png
+__pycache__
