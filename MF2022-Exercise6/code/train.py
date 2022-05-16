@@ -109,7 +109,7 @@ def main():
             
         if min_loss == -1 or min_loss > (float(l1) / float(cnt)):
             min_loss = float(l1) / float(cnt)
-            torch.save(model.state_dict(), '{:s}/model'.format(save_dir) + '_res' if config['Model']['residual'] else '' + '_best_lr_{:.0E}.pth'.format(learning_rate))
+            torch.save(model.state_dict(), ('{:s}/model'.format(save_dir) + ('_res' if config['Model']['residual'] else '') + '_best_lr_{:.0E}.pth'.format(learning_rate)))
             
         writer.add_scalar('L1/train', float(l1) / float(cnt), epoch)
         writer.add_scalar('PSNR/train', float(psnr) / float(cnt), epoch)
@@ -135,7 +135,7 @@ def main():
         writer.add_scalar('PSNR/evaluation', float(psnr) / float(cnt), epoch)
         writer.add_scalar('SSIM/evaluation', float(SSIM) / float(cnt), epoch)
         if (epoch + 1) % save_iterval == 0 or (epoch + 1) == number_of_epochs:    
-            torch.save(model.state_dict(), '{:s}/model'+ '_res' if config['Model']['residual'] else '' + '_iter_{:d}_lr_{:.0E}.pth'.format(save_dir, epoch, learning_rate))
+            torch.save(model.state_dict(), ('{:s}/model'.format(save_dir) + ('_res' if config['Model']['residual'] else '') + '_iter_{:d}_lr_{:.0E}.pth'.format(epoch + 1, learning_rate)))
 
 if __name__ == "__main__":
     main()
