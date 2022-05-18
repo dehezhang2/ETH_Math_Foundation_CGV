@@ -37,18 +37,18 @@ class SRDataset(Dataset):
                 transforms.ColorJitter(brightness=self.jitter_val, contrast=self.jitter_val, saturation=self.jitter_val, hue=self.jitter_val),
             ])
         elif self.mode == 'Test_both':
+         
             hr_transformer = transforms.Compose([
-                transforms.CenterCrop(self.image_size),
                 transforms.ColorJitter(brightness=self.jitter_val, contrast=self.jitter_val, saturation=self.jitter_val, hue=self.jitter_val),
             ])
             lr_transformer1 = transforms.Compose([
-                transforms.Resize(size=(int(self.image_size / self.upscale_factor), int(self.image_size / self.upscale_factor)), interpolation = InterpolationMode.BILINEAR),
+                transforms.Resize(size=(int(image.shape[1] / self.upscale_factor), int(image.shape[2] / self.upscale_factor)), interpolation = InterpolationMode.BILINEAR),
             ])
             lr_transformer2 = transforms.Compose([
-                transforms.Resize(size=(int(self.image_size / self.upscale_factor), int(self.image_size / self.upscale_factor)), interpolation = InterpolationMode.BICUBIC),
+                transforms.Resize(size=(int(image.shape[1] / self.upscale_factor), int(image.shape[2] / self.upscale_factor)), interpolation = InterpolationMode.BICUBIC),
             ])
             lr_transformer3 = transforms.Compose([
-                transforms.Resize(size=(int(self.image_size / self.upscale_factor), int(self.image_size / self.upscale_factor)), interpolation = InterpolationMode.NEAREST),
+                transforms.Resize(size=(int(image.shape[1] / self.upscale_factor), int(image.shape[2] / self.upscale_factor)), interpolation = InterpolationMode.NEAREST),
             ])
             hr_image = hr_transformer(image)
             lr_image1 = lr_transformer1(hr_image)

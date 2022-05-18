@@ -1,4 +1,5 @@
 upscale_factor: 2
+log: True
 Dataset:
   train_path : ../train
   test_path : ../eval

@@ -81,7 +81,8 @@ def main():
     print('Number of parameters in the network: {:d}'.format(num_params))
     
     # Writer will output to ./runs/ directory by default
-    writer = SummaryWriter(log_dir = config['Train']['log_dir'] )
+    if config['log']:
+        writer = SummaryWriter(log_dir = config['Train']['log_dir'] )
     # average loss or use global id
     print("Start training")
     for epoch in tqdm(range(number_of_epochs)):
@@ -110,10 +111,10 @@ def main():
         if min_loss == -1 or min_loss > (float(l1) / float(cnt)):
             min_loss = float(l1) / float(cnt)
             torch.save(model.state_dict(), ('{:s}/model'.format(save_dir) + ('_res' if config['Model']['residual'] else '') + '_best_lr_{:.0E}.pth'.format(learning_rate)))
-            
-        writer.add_scalar('L1/train', float(l1) / float(cnt), epoch)
-        writer.add_scalar('PSNR/train', float(psnr) / float(cnt), epoch)
-        writer.add_scalar('SSIM/train', float(SSIM) / float(cnt), epoch)
+        if config['log']:
+            writer.add_scalar('L1/train', float(l1) / float(cnt), epoch)
+            writer.add_scalar('PSNR/train', float(psnr) / float(cnt), epoch)
+            writer.add_scalar('SSIM/train', float(SSIM) / float(cnt), epoch)
         
         cnt = 0
         l1 = 0
@@ -131,9 +132,10 @@ def main():
                 psnr += -10*torch.log10(mse(high_res_prediction, high_res))
                 SSIM += ssim( high_res_prediction, high_res, data_range=1, size_average=True)
                 cnt += 1
-        writer.add_scalar('L1/evaluation', float(l1) / float(cnt), epoch)
-        writer.add_scalar('PSNR/evaluation', float(psnr) / float(cnt), epoch)
-        writer.add_scalar('SSIM/evaluation', float(SSIM) / float(cnt), epoch)
+        if config['log']:
+            writer.add_scalar('L1/evaluation', float(l1) / float(cnt), epoch)
+            writer.add_scalar('PSNR/evaluation', float(psnr) / float(cnt), epoch)
+            writer.add_scalar('SSIM/evaluation', float(SSIM) / float(cnt), epoch)
         if (epoch + 1) % save_iterval == 0 or (epoch + 1) == number_of_epochs:    
             torch.save(model.state_dict(), ('{:s}/model'.format(save_dir) + ('_res' if config['Model']['residual'] else '') + '_iter_{:d}_lr_{:.0E}.pth'.format(epoch + 1, learning_rate)))
 
